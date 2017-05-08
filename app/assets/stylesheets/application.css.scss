@@ -36,6 +36,18 @@ h1, h2, h3 {
     
 }
 
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #ddd;
+}
+
 .navbar{
     border: none;
 }
