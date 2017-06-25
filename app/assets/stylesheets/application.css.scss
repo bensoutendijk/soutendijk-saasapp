@@ -78,7 +78,15 @@ h1, h2, h3 {
     border: none;
 }
 
-// display:none for log-in/log-out flash messages
-.alert-notice {
-    display: none;
+// Styles for flash messages
+.flash-container{
+    position: absolute;
+    width: 100%;
+}
+// Devise specific flash messages
+.alert-notice, .alert-alert {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    margin-top: -14px;
 }
