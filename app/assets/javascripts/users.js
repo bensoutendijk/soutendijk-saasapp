@@ -1,72 +1,62 @@
 /* global $, Stripe */
-
-// Document Ready
+//Document ready.
 $(document).on('turbolinks:load', function(){
-    var theForm = $('#pro-form');
-    var submitBtn = $('#form-signup-btn');
-    
-  // Set our Stripe public key
-  Stripe.setPublishableKey($('meta[stripe-key]').attr('content'));
+  var stripe = Stripe('pk_test_mPxKgT9HY4tuddLB3ngOm8jv');
+  var elements = stripe.elements();
   
-  // When user clicks form submit button
-  submitBtn.click(function(event){
-    
-    // we will prevent the default submission behavior
-    event.preventDefault();
-    submitBtn.val("Processing...").prop('disabled', true);
-    
-    // Collect the credit card field
-    var ccNum = $('#card_number.val()'),
-        cvcNum = $('#card_code.val()'),
-        expMonth = $('#card_month.val()'),
-        expYear = $('#card_year.val()');
-        
-    // Use Stripe JS lib to check for card errors
-    var error = false;
-    
-    // Validate card number
-    if (!Stripe.card.validateCardNumber(ccNum)) {
-      error=true;
-      alert('Invalid CC number');
+  // Custom styling can be passed to options when creating an Element.
+  var style = {
+    base: {
+      // Add your base input styles here. For example:
+      fontSize: '16px',
+      lineHeight: '24px'
     }
-    
-    // Validate CVC number
-    if (!Stripe.card.validateCVC(cvcNum)) {
-      error=true;
-      alert('Invalid CVC number');
-    }
-    
-    // Validate expiration date
-    if (!Stripe.card.validateExpiry(expMonth,expYear)) {
-      error=true;
-      alert('Invalid card expiration date');
-    }
-    
-    if (error){
-    // Dont send to Stripe
-    submitBtn.prop('disabled', false).val("Sign up");
+  };
+
+  
+  // Create an instance of the card Element
+  var card = elements.create('card', {style: style});
+
+  // Add an instance of the card Element into the `card-element` <div>
+  card.mount('#card-element');
+  
+  // Add EventListener to catch mistakes as user types
+  card.addEventListener('change', function(event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+      displayError.textContent = event.error.message;
     } else {
-      // Send card info to Stripe
-      Stripe.createToken({
-      number: ccNum,
-      cvc: cvcNum,
-      exp_month: expMonth,
-      exp_year: expYear
-      }, stripeResponseHandler);
+      displayError.textContent = '';
     }
-    
-    
-    return false;
   });
- 
-  // Stripe will return back a card token
-  function stripeResponseHandler(status, response) {
-    // Get the token from the response
-    var token = response.id;
-    
-    // Inject card token as hidden field into form
-    theForm.append( $('<input type="hidden" name="user[stripe_card_token]>').val(token) );
-    // Submit form to Rails app
-    theForm.get(0).submit();
-  }
+  
+  // Create a token or display an error when the form is submitted.
+  var form = document.getElementById('pro-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Inform the user if there was an error
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        // Send the token to your server
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
 });
+
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('pro-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'user[stripeToken]');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
