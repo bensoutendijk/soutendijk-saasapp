@@ -74,3 +74,8 @@ h1, h2, h3 {
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border: none;
 }
+
+// display:none for log-in/log-out flash messages
+.alert-notice {
+    display: none;
+}
