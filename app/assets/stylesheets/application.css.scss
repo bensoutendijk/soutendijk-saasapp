@@ -79,8 +79,16 @@ h1, h2, h3 {
 }
 
 // Styles for flash messages
-.alert {
+.alert-info {
     display: none;
+}
+.alert-danger {
+    position: absolute;
+    margin-top: -14px;
+}
+
+.container-signup-error {
+    margin-top: 44px;
 }
 
 //Pro form CC well
