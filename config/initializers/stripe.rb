@@ -1,2 +1,2 @@
-Stripe.api_key = "sk_test_HgOpg54AeOEXFgwWE9HLvn6D"
+Stripe.api_key = ENV["stripe_api_key"]
 STRIPE_PUBLIC_KEY = ENV["stripe_publishable_key"]

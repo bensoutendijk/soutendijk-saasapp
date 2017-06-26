@@ -1,7 +1,7 @@
 /* global $, Stripe */
 //Document ready.
 $(document).on('turbolinks:load', function(){
-  var stripe = Stripe('pk_test_mPxKgT9HY4tuddLB3ngOm8jv');
+  var stripe = Stripe( $('meta[name="stripe-key"]').attr('content') );
   var elements = stripe.elements();
   
   // Custom styling can be passed to options when creating an Element.
@@ -12,7 +12,6 @@ $(document).on('turbolinks:load', function(){
       lineHeight: '24px'
     }
   };
-
   
   // Create an instance of the card Element
   var card = elements.create('card', {style: style});
