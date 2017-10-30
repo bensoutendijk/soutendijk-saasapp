@@ -1,7 +1,7 @@
-class ProfilesController < ApplicationController::Base
+class ProfilesController < ApplicationController
   
   # user makes GET request to /users/:user_id/profile/new
   def new
-    # render a blank profile details form
+    @profile = Profile.new
   end
 end
