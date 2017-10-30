@@ -1,8 +1,6 @@
 <div class="home-callout text-center container-fluid">
-    
   <h1>Welcome to DevMatch</h1>
   <h4>Tutorial app with Ruby on Rails <br><br> by Ben Soutendijk</h4>
-    
 </div>
 
 <div class="container home-signup-links">
@@ -12,7 +10,7 @@
         <div class="well">
           <h2 class="text-center">Your Profile</h2>
           <% if current_user.profile %>
-            <%= link_to 'Edit your profile', "#", class: 'btn btn-default btn-lg btn-block' %>
+            <%= link_to 'Edit your profile', edit_user_profile_path(user_id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
             <%= link_to 'View your profile', user_path(id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
           <% else %>
             <p class="text-center">Create your profile so that you can share with the community.</p>
