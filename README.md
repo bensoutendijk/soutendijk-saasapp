@@ -1,6 +1,6 @@
 # README
 
-[devaent](www.soutendijk.herokuapp.com) Software-as-a-Service Ruby on Rails App
+[devaent](https://www.soutendijk.herokuapp.com) Software-as-a-Service Ruby on Rails App
 
 Built with ruby on rails, this software-as-a-service app implements user authentication, 
 ecommerce, user profiles, and production grade servers.
