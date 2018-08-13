@@ -37,11 +37,7 @@ h1, h2, h3 {
 
 //Background gradient
 .home-callout, .navbar {
-    
-    background: #00c6ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    background: #4ea1d3;
 }
 
 //nav styles
@@ -76,6 +72,11 @@ h1, h2, h3 {
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border: none;
+}
+
+// Styles for buttons
+.btn-primary {
+    background: #4ea1d3;
 }
 
 // Styles for flash messages
