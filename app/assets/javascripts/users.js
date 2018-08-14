@@ -27,14 +27,14 @@ $(document).on('turbolinks:load', function(){
           submitButton.prop('disabled', true);
   
           progressBar.
-            css('background', 'green').
+            css('background', '#5cb85c').
             css('display', 'block').
             css('width', '0%').
-            text("Loading...");
+            text("Uploading...");
         },
         done: function(e, data) {
           submitButton.prop('disabled', false);
-          progressBar.text("Uploading done");
+          progressBar.text("Done!");
   
           // extract key and generate URL from response
           var key   = $(data.jqXHR.responseXML).find("Key").text();
@@ -48,7 +48,7 @@ $(document).on('turbolinks:load', function(){
           submitButton.prop('disabled', false);
   
           progressBar.
-            css("background", "red").
+            css("background", "#a94442").
             text("Failed");
         }
       });
