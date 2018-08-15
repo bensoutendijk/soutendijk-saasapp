@@ -9,6 +9,7 @@ $(document).on('turbolinks:load', function(){
       var submitButton = form.find('input[type="submit"]');
       var progressBar  = $("<div class='bar'></div>");
       var barContainer = $("<div class='progress'></div>").append(progressBar);
+      var fd           = form.data('form-data');
       fileInput.after(barContainer);
       fileInput.fileupload({
         fileInput:       fileInput,
@@ -19,6 +20,11 @@ $(document).on('turbolinks:load', function(){
         paramName:        'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
         dataType:         'XML',  // S3 returns XML if success_action_status is set to 201
         replaceFileInput: false,
+        add: function (e, data) {
+          fd['Content-Type'] = data.files[0].type;
+          data.formData = fd;
+          data.submit();
+        },
         progressall: function (e, data) {
         var progress = parseInt(data.loaded / data.total * 100, 10);
           progressBar.css('width', progress + '%');
